@@ -39,7 +39,7 @@ jobs:
         uses: garygrossgarten/github-action-ssh@release
         with:
           command: docker rm -f python-docker || true && docker run -d --name python-docker -p 5000:5000 ghcr.io/atiframzan89/docker-python:latest
-          host: ${{ secrets.HOST }}
+          host: 52.0.82.174
           username: ubuntu
           #passphrase: ${{ secrets.PASSPHRASE }}
           privateKey: ${{ secrets.PRIVATE_KEY}}
