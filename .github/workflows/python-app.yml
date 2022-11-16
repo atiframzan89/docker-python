@@ -34,3 +34,17 @@ jobs:
       - name: docker push
         run: |
           docker push ghcr.io/atiframzan89/docker-python:latest
+      
+      - name: Deploy to EC2 Instance
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          command: docker rm -f python-docker || true && docker run -d --name python-docker -p 5000:5000 ghcr.io/atiframzan89/docker-python:latest
+          host: ${{ secrets.HOST }}
+          username: ubuntu
+          #passphrase: ${{ secrets.PASSPHRASE }}
+          privateKey: ${{ secrets.PRIVATE_KEY}}
+          
+      - name: Verify
+        run: |
+          curl http://localhost:5000
+      
